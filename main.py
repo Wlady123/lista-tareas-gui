@@ -51,6 +51,17 @@ def limpiar_lista():
     else:
         messagebox.showinfo("Información", "La lista ya esta vacía")
 
+
+def marcar_completada():
+    seleccion = lista_tareas.curselection()
+
+    if seleccion:
+        tarea = lista_tareas.get(seleccion[0])
+        lista_tareas.delete(seleccion[0])
+        lista_tareas.insert(seleccion[0], "✔ " + tarea)
+    else:
+        messagebox.showwarning("Advertencia", "Selecciona una tarea")
+
 # Botón para agregar tareas
 boton_agregar = tk.Button(ventana, text="Agregar Tarea", command=agregar_tarea)
 boton_agregar.pack(pady=5)
@@ -62,6 +73,9 @@ boton_eliminar.pack(pady=5)
 # Botón para limpiar toda la lista
 boton_limpiar = tk.Button(ventana, text="Limpiar", command=limpiar_lista)
 boton_limpiar.pack(pady=5)
+
+boton_completar = tk.Button(ventana, text="Marcar como Completada", command=marcar_completada)
+boton_completar.pack(pady=5)
 
 ventana.bind("<Return>", lambda event: agregar_tarea())
 
